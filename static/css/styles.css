@@ -1,0 +1,191 @@
+/* static/css/styles.css */
+*{
+    margin: 0;
+    padding: 0;
+}
+header{
+    background-color: red;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+}
+header h1{
+    margin: 20px;
+    color: aqua;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0 5px 0 5px;
+}
+header ul{
+    display: flex;
+    justify-content: space-between;
+    
+}
+header li{
+    list-style: none;
+    margin: 20px;
+}
+header a{
+    text-decoration: none;
+    color: aliceblue;
+    font-size: 2vw;
+    padding: 30px;
+}
+header h2{
+    text-align: center;
+    padding: 20px;
+    font-size: 3vw;
+    color: rgb(248, 6, 224);
+}
+.section1{
+    position: relative;
+}
+.section1 img{
+    width: 100%;
+    height: 100vh;
+}
+.section1 p{
+    font-size: 5vw;
+    position: absolute;
+    color: rgb(238, 180, 7);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-text-stroke: 1px rgb(0, 0, 0);
+
+}
+.section2{
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 50px;
+}
+.section2 img{
+    width: 26vw;
+    height: 50vh;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px black;
+}
+.section2 button{
+    width: 35%;
+    text-align: center;
+    height: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 25%;
+    border-radius: 10px;
+    background-color: blueviolet;
+    color: aliceblue;
+    cursor: pointer;
+    font-size: 1.5vw;
+}
+.section2 p{
+    font-weight: bolder;
+    font-size: 1.1vw;
+    padding-top: 5px;
+}
+
+/* Css Register */
+.body{
+    position: relative;
+}
+/* form{
+    border: 2px solid rgb(254, 254, 254);
+    background-color: rgba(67, 152, 152, 0.814);
+    width: 100vh;
+    height: 80vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,10%);
+    padding-top: 10px;
+    border-radius: 20px;
+} */
+.body label{
+    font-size: 1.5vw;
+    color: white;
+}
+.body input{
+    width: 80%;
+    height: 35px;
+    border-radius: 10px;
+    border: none;
+    padding-left: 10px;
+}
+.body h1{
+    text-align: center;
+    font-size: 3vw;
+    background-color: white;
+    width: 35%;
+    margin-left: 30%;
+    margin-top: -10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.body div{
+    padding-left: 20%;
+}
+.div1{
+    margin-top: 50px;
+    text-align: center;
+}
+.div1 button{
+    width: 40%;
+    height: 40px;
+    background-color: blueviolet;
+    color: white;
+    border-radius: 10px;
+    font-size: 1.5vw;
+    cursor: pointer;
+}
+.div1 p{
+    color: white;
+    font-size: 1.2vw;
+    padding-top: 10px;
+    padding-left: 50%;
+}
+.div1 a{
+    color: red;
+}
+.sec2{
+    background-color: rgb(199, 121, 218);
+    margin: 20px;
+    border-radius: 10px;
+}
+.sec2 div{
+    padding-left: 20%;
+    font-size: 2vw;
+    padding-top: 10px;
+}
+.sec2 div input,textarea{
+    border-radius: 20px;
+    padding: 5px;
+}
+.sec2 input{
+    width: 60%;
+    height: 40px;
+}
+.sec2 button{
+    width: 20%;
+    height: 45px;
+    margin-left: 60%;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: blueviolet;
+    font-size: 1.8vw;
+    color: aliceblue;
+    cursor: pointer;
+}
+footer{
+    background-color: rgb(220, 82, 82);
+    height: 20px;
+    text-align: center;
+    color: aliceblue;
+    font-size: 2vw;
+    padding: 20px;
+}
+
+/* django-admin startproject nom_projet */
+/* python manage.py startapp nom_app */
+/* python manage.py migrate */
+/* python manage.py createsuperuser */
+/* python manage.py runserver */

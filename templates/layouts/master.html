@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block "title" %}
+        
+        {% endblock "title" %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/membre.css' %}">
+</head>
+<style>
+    .night-mode{
+        background-color:black;
+        color: white;
+    }
+</style>
+<body>
+    {% include "layouts/header.html" %}
+
+    {% block "contenue" %}
+    {% endblock "contenue" %}
+    
+    {% include "layouts/footer.html" %}
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

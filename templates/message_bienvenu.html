@@ -1,0 +1,17 @@
+{% extends "layouts/master.html" %}
+
+{% block "title" %}
+    Connection
+{% endblock "title" %}   
+
+{% block "contenue" %}
+    <section>
+        <h2>Vous etes Bien inscrit </h2>
+        <ul>
+            <li>Votre adresse email : </li>
+            <li>Votre Pseudo: </li>
+            <li>Date d'inscription :</li>
+        </ul>
+        <h3><a href="{% url 'connection'  %}">Cliquer ici pour vous connectez!!</a></h3>
+    </section>
+{% endblock "contenue" %}

@@ -1,0 +1,101 @@
+{% extends "layouts/master.html" %}
+{% block 'title' %}
+    Pannier
+{% endblock 'title' %}
+
+{% block "contenue" %}
+    <section>
+        <form action="" method="post">
+            <table border="2">
+                <tr>
+                    <th>id</th>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Nombre</th>
+                    <th>suprimer</th>
+                    <th>
+                        <label for="total" >Prix Total</label>
+                        <input id="prixTotal" type="number" name="prixtotal" readonly>
+                    </th>
+                </tr>
+                {% if 'cart' in request.session %}
+                    {% for prod in request.session.cart %}
+                        <tr id="table_row">
+                            <td>{{prod.id_prod}}</td>
+                            <td >{{prod.titre}}</td>
+                            <td class="prix">{{prod.prix}}</td>
+                            <td>
+                                <input type="number" name="" id="num" value="1" min="1">
+                            </td>
+                            <td>
+                                <a href="{% url 'suppression' prod.id_prod  %}">Suppr</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                
+                {% endif %}
+            </table>
+        </form>
+        <h3>Acheter Avec</h3>
+        <div>
+            <a href="{% url 'stripe'  %}">Stripe</a>
+        </div>
+
+    </section>
+    <script>
+        function totale_prix() {
+            // Declaration variables : let,var,const
+            // DOM : Document Objtects Models
+            // let total = document.getElementsByClassName(".prixTotal")
+            let totale = document.querySelector("#prixTotal")
+            let prix = document.querySelectorAll(".prix")
+            let tr = document.querySelectorAll("#table_row")
+            let num = document.querySelectorAll("#num")
+            let data = []
+
+            prix.forEach(e =>{
+                data.push(parseInt(e.textContent))
+            })
+
+            let somme = 0
+            data.forEach((e,i)=>{
+                somme += e*parseInt(num[i].value)
+            })
+            totale.value = somme
+
+            if (!sessionStorage.getItem('prix')) {
+                sessionStorage.setItem("prix",JSON.stringify(somme))
+            }else{
+                sessionStorage.setItem("prix",JSON.stringify(somme))
+            }
+
+            if (somme === 0) {
+                sessionStorage.removeItem('prix');
+            }
+            return somme;
+        }
+        setInterval(totale_prix,100);
+
+        function storage(){
+            let tr = document.querySelectorAll("#table_row")
+
+            let commande = [];
+            tr.forEach(e =>{
+                commande.push({
+                    'produits':e.children[1].textContent,
+                    'prix':e.children[2].textContent,
+                    'nombre':e.children[3].children[0].value
+                })
+            })
+            if (!sessionStorage.getItem('commande')) {
+                sessionStorage.setItem("commande",JSON.stringify(commande))
+            }else{
+                sessionStorage.setItem("commande",JSON.stringify(commande))
+            }
+
+        }
+        setInterval(storage,100)
+
+    </script>
+
+{% endblock "contenue" %}

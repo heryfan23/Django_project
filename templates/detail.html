@@ -1,0 +1,138 @@
+{% extends "layouts/master.html" %}
+
+{% block "title" %}
+    Page Detail
+{% endblock "title" %}
+
+    {% block "contenue"  %}
+        <section class="section">
+            <section class="section_det">
+                <h2>Nom Produits : {{produit.titre}}</h2>
+                <h3>description : {{produit.desc}} .</h3>
+                <h3>Prix : {{produit.prix}} ar</h3>
+                <img src="../{{produit.images}}" alt="">
+                <div class="commentaire">
+                    <h2>Commentaires : {{nbrcoms}}</h2>
+                    {% for x in coms %}
+                        <h3>=> {{x.7}}</h3>
+                        <ul>
+                            <li>{{x.3}}</li>
+                        </ul>
+                    {% endfor %}
+                </div>
+            </section>
+           {% if request.session.client %}
+            <section class="section_2">
+                <a href="{% url 'pannier' produit.id %}"><button type="submit">Ajouter dans Pannier</button></a>
+                <form action="{% url 'commente' %}" method="post">
+                    {% csrf_token %}
+                    <h2>Placer votre commentaire ici!!!</h2>
+                    <textarea name="coms" id="" cols="75" rows="15"></textarea>
+
+                    <input type="hidden" name="id_produit" id="" value="{{produit.id}}">
+
+                    <button type="submit">Envoyer</button>
+
+                </form>
+                {% if request.method == 'POST' %}
+                    {% if error %}
+                        <p>{{error}}</p>
+                    {% endif %}
+                {% endif %}
+            </section>
+           {% endif %}
+        </section>
+        <style>
+            .section{
+                display: flex;
+            }
+            .section_det{
+                /* text-align: center; */
+                border: 2px solid black;
+                width: 50%;
+                margin: 20px;
+                border-radius: 20px;
+                height: 130vh;
+                padding: 20px;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+            .section_det img{
+                border-radius: 20px;
+                margin: 20px 50px;
+                height: 60vh;
+                width: 80vh;
+            }
+            .commentaire{
+                width: 90%;
+                background-color: rgba(128, 128, 128, 0.622);
+                height: 45vh;
+                margin: 20px;
+                color: rgb(240, 239, 239);
+                overflow-y: scroll;
+                border-radius: 20px;
+                box-shadow: 2px 2px 2px 2px rgb(208, 152, 152);
+                
+            }
+            .commentaire h2{
+                font-weight: bolder;
+                font-size: 1.8vw;
+                text-decoration: underline solid;
+                padding: 10px 20px;
+            }
+            .commentaire h3{
+                padding: 5px 30px;
+                color:black;
+            }
+            .section_2 button:first-child{
+                margin-top: 40px;
+                width: 60%;
+                font-size: 2vw;
+                padding: 10px 20px;
+                border-radius: 15px;
+                background-color: green;
+                cursor: pointer;
+            }
+            form{
+                margin-top: 30px;
+            }
+            form h2{
+                margin-bottom: 20px;
+            }
+            form button{
+                width: 50%;
+                height: 45px;
+                background-color: red;
+                color: rgb(234, 227, 227);
+                font-size: 2vw;
+                border: none;
+                border-radius: 15px;
+                margin-top: 15px;
+                margin-left: 40%;
+                cursor: pointer;
+            }
+            textarea{
+                resize: none;
+                padding: 10px;
+            }
+            form label{
+                font-size: 2vw;
+                padding: 30px 10px;
+                font-weight: bolder;
+            }
+            form input{
+                width: 70%;
+                height: 45px;
+                margin-left: 10%;
+                padding-left: 10px;
+                font-size: 1.5vw;
+                border-radius: 10px;
+            }
+            .commentaire ul{
+                margin-left:70px;
+                color:red;
+            }
+        </style>
+    {% endblock "contenue" %}
+
+    

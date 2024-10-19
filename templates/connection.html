@@ -1,0 +1,30 @@
+{% extends "layouts/master.html" %}
+
+{% block "title" %}
+    Connection
+{% endblock "title" %}   
+
+{% block "contenue" %}
+    {% if request.method == "POST" %}
+        {% if message %}
+            <p style="color:red;font-size:2vw;"> {{message}}</p>
+        {% endif %}
+    
+    {% endif %}
+    <form action="{% url 'se_connecter' %}" method="post" class="connection">
+    {% csrf_token %}
+        <h2>Connection</h2>
+        <div>
+            <label for="email">Email :</label><br>
+            <input type="email" name="emails" id="email" placeholder="Entrer votre email">
+        </div>
+        <div>
+            <label for="password">Mot de Passe :</label><br>
+            <input type="password" name="mdp_conn" id="password" placeholder="Entrer votre Mot de Passe">
+        </div>
+        <div class="div_inscrit">
+            <button type="submit">Se connecter</button>
+            <p>si Pas de Compte <a href="{% url 'inscription' %}">Inscrivez-vous!!</a></p>
+        </div>
+    </form>
+{% endblock "contenue" %}

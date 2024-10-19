@@ -1,0 +1,104 @@
+{% extends "layouts/master.html" %}
+
+{% block "title" %}
+    Payement
+{% endblock "title" %}
+
+{% block "contenue" %}
+    <form action="{% url 'effectuer_payement' %}" method="post" id="validation">
+        {% csrf_token %}
+        <h1>Details de facturation</h1>
+        {% if error %}
+            <div class="alerte">
+                {{error}}
+            </div>
+        {% endif %}
+            <div class="alerte-info">
+                {{message}}
+            </div>
+        {% if message %}
+        
+            
+        {% endif %}
+        <label for="">Nom</label>
+        <input type="text" id="nom" name="nom"> <br><br>
+        <label for="">Prenom</label>
+        <input type="text" id="prenom" name="prenom"> <br><br>
+        <label for="">Adresse</label>
+        <input type="text" id="addresse" name="addresse"> <br><br>
+        <label for="">Mois d'expiration :</label>
+        <input type="month" id="mois_expiration"> <br><br>
+        <label for="">Annee d'expiration</label>
+        <input type="number" id="annes_expiration"> <br><br>
+        <label for="">Nom de la carte</label>
+        <input type="text" id="nom_carte"> <br><br>
+        <label for="">Numero Carte</label>
+        <input type="text" id="num_carte"> <br><br>
+        <label for="">cvc</label>
+        <input type="text" id="cart_cvc"> <br><br>
+        <div>
+            <input type="hidden" name="stripeToken" id="TokenKey">
+            <input type="hidden" name="prixtotal" class="prix_total">
+            <input type="hidden" name="commande" class="commande">
+            <input type="submit" value="Payer" id="payer">
+        </div>
+    </form>
+<script src="https://js.stripe.com/v2/"></script>
+<script>
+    Stripe.setPublishablekey(
+        "pk_test_51PiC0g2N6YOP94rlqrXA0GXmIXAHwHCbA37OF5ST6zGBax5q3Ht4lGOkQzLc50hmNV3ytq4aBVaBJ1ALL7jpaC6I00jxpfsccE"
+    )
+
+    let form = document.getElementById("validation")
+    let payer = document.getElementById("payer")
+    let total = document.querySelector(".prix_total")
+    let commande = document.querySelector(".commande")
+
+    payer.addEventListener("click",(e)=>{
+        e.preventDefault();
+
+        let expirer_mois = document.querySelector("#mois_expiration").value;
+        let mois = expirer_mois.split("-")[1];
+
+        let btns = document.querySelectorAll('button');
+        btns.forEach(btn =>{
+            btn.disabled = true;
+        });
+        console.log(`
+            number:${document.querySelector("#num_carte").value},
+            cvc:${document.querySelector("#cart_cvc").value},
+            exp_month:${mois},
+            exp_year:${document.querySelector("#annes_expiration").value},
+            name:${document.querySelector("#nom_carte").value}
+            
+        `);
+
+        Stripe.createToken({
+            number: document.getElementById("num_carte").value,
+            cvc:document.querySelector("#cart_cvc").value,
+            exp_month:mois,
+            exp_year:document.querySelector("#annes_expiration").value,
+            name:document.querySelector("#nom_carte").value
+        }, stripeReponse);
+
+        function stripeReponse(status,reponse){
+            if(reponse.error){
+                document.getElementById("charge_error").classList.remove('hidden')
+                document.getElementById("charge_error").textContent = reponse.error.message;
+
+                let btns = document.querySelectorAll('button');
+                btns.forEach(btn =>{
+                    btn.disabled = false;
+                });
+            }else{
+                console.log(reponse.id)
+                document.getElementById("TokenKey").value= reponse.id
+                Final.value = sessionStorage.getItem('prix')
+                commande.value = sessionStorage.getItem('commande')
+            }
+
+        }
+    })
+
+</script>
+{% endblock "contenue" %}

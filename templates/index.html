@@ -1,0 +1,48 @@
+{% extends "layouts/master.html" %}
+
+{% block "title" %}
+    Page Accueil
+{% endblock "title" %}
+
+    {% block "contenue"  %}
+    <section class="section1">
+        <p>Site Django</p>
+        <img src="/static/images/sary.webp" alt="sary">
+    </section>
+    <h2>Nos Articles</h2>
+    <section class="section2">
+        {% for article in listes_articles %}
+        
+        <div>
+            <img src="{{article.images.url}}" alt="">
+            <p>Prix : {{article.prix}}</p>
+            <p>description : {{article.desc}}</p>
+            <a href="{% url 'detail' article.id  %}"><button type="submit">Voir Details</button></a>
+        </div>
+        {% endfor %}
+       
+    </section>
+        {% if request.method == 'POST' %}
+            {% if message %}
+                <p>{{mesage}}</p>
+            {% endif %}
+        {% endif %}
+    <form class="sec2" action="{% url 'envoyer_email'  %}" method="post">
+
+        {% csrf_token %}
+        <h2>Contactez Nous</h2>
+        <div>
+            <label for="nom">Nom :</label> <br>
+            <input type="text" name="nom" id="nom">
+        </div>
+        <div>
+            <label for="email">email :</label> <br>
+            <input type="email" name="email" id="email">
+        </div>
+        <div>
+            <label for="mess">Message :</label><br>
+            <textarea name="message" id="" cols="83" rows="15"></textarea>      
+        </div>
+        <button type="submit">Envoyer</button>
+    </form>
+    {% endblock "contenue" %}
